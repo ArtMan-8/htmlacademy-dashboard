@@ -1,5 +1,8 @@
 import React from 'react';
+import useStyles from './header.styles';
 
 export default function Header(): JSX.Element {
-  return <header>header</header>;
+  const classes = useStyles();
+
+  return <header className={classes.header} />;
 }

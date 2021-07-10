@@ -5,6 +5,7 @@
   "singleQuote": true,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "useTabs": false
+  "useTabs": false,
+  "printWidth": 120
 }
 

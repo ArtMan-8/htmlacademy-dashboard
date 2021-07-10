@@ -1,12 +1,5 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import App from './components/App';
+import App from './App';
 
-ReactDom.render(
-  <>
-    <CssBaseline />
-    <App />
-  </>,
-  document.querySelector('#root'),
-);
+ReactDom.render(<App />, document.querySelector('#root'));

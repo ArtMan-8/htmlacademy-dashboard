@@ -7,13 +7,9 @@ export default createStyles({
       flexDirection: 'column',
       minHeight: '100vh',
     },
-    header: {
-      backgroundColor: '#2d2d44',
-    },
     main: {},
     footer: {
       marginTop: 'auto',
-      backgroundColor: '#2d2d44',
     },
   },
 });
