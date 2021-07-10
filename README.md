@@ -1,1 +1,1 @@
-# htmlacademy-dashboard
+# Dashboard of htmlacademy students
