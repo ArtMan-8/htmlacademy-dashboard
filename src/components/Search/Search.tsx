@@ -8,19 +8,13 @@ export default function Search(): JSX.Element {
   return (
     <Box className={classes.formContainer}>
       <Typography align="center">
-        Введите название проекта и&nbsp;номер потока вида:{' '}
-        <i>названиеПроекта-номерПотока</i>
+        Введите название проекта и&nbsp;номер потока вида: <i>названиеПроекта-номерПотока</i>
         <br />
         например <b>keksobooking-23</b>
       </Typography>
 
       <form className={classes.form} noValidate autoComplete="off">
-        <TextField
-          id="outlined-basic"
-          label="htmlacademy project"
-          variant="outlined"
-          fullWidth
-        />
+        <TextField id="outlined-basic" label="htmlacademy project" variant="outlined" fullWidth />
       </form>
     </Box>
   );

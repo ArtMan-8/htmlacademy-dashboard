@@ -1,5 +1,7 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotenv = require('dotenv').config();
 
 module.exports = {
   entry: './src/index.tsx',
@@ -26,8 +28,10 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Dev mode',
       template: './src/index.html',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.GRAPHQL_API_KEY': JSON.stringify(process.env.GRAPHQL_API_KEY),
     }),
   ],
 };
