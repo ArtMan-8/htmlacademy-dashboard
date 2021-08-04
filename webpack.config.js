@@ -9,18 +9,18 @@ module.exports = {
     filename: 'bundle.js',
     path: path.join(__dirname, 'build'),
   },
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'build'),
     port: 9000,
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx'],
+    extensions: ['.js', '.ts', '.jsx', '.tsx'],
   },
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(jsx|tsx)$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
