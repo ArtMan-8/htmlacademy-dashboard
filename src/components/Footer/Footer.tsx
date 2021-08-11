@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Typography, Link } from '@material-ui/core';
-import { store } from '../../store';
+import { store } from '../../store/store';
 import useStyles from './footer.styles';
 
 export default function Footer(): JSX.Element {

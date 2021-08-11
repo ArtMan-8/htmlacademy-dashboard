@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import App from './App';
-import StateProvider from './store';
+import StateProvider from './store/store';
 
 const client = new ApolloClient({
   uri: 'https://api.github.com/graphql',

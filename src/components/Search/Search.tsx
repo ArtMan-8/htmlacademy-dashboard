@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Box, TextField, Typography } from '@material-ui/core';
-import { store } from '../../store';
+import { store } from '../../store/store';
 import useStyles from './search.styles';
+import { actionCreate, EActionType } from '../../store/types';
 
 export default function Search(): JSX.Element {
   const classes = useStyles();
@@ -16,14 +17,8 @@ export default function Search(): JSX.Element {
     event.preventDefault();
     setProjectName('');
 
-    dispatch({
-      type: 'SET_PROJECT_NAME',
-      payload: { projectName },
-    });
-
-    dispatch({
-      type: 'CLEAR_REPOSITORIES',
-    });
+    dispatch(actionCreate(EActionType.SET_PROJECT_NAME, { projectName }));
+    dispatch(actionCreate(EActionType.CLEAR_REPOSITORIES));
   };
 
   return (

@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { store } from '../../store';
+import { store } from '../../store/store';
 import { GET_REPOS } from './GetRepos.query';
+import { actionCreate, EActionType } from '../../store/types';
 
 function Table(): JSX.Element {
   const [refetchLimit, setRefetchLimit] = useState(10);
   const [cursor, setCursor] = useState<null | string>(null);
   const { state, dispatch } = useContext(store);
-  const { projectName } = state;
+  const { projectName, repositories } = state;
 
   const { data, loading, error } = useQuery(GET_REPOS, {
     variables: {
@@ -16,18 +17,8 @@ function Table(): JSX.Element {
       first: 100,
     },
     onCompleted() {
-      dispatch({
-        type: 'SET_REQUEST_LIMIT',
-        payload: {
-          requestLimit: data.rateLimit.remaining,
-        },
-      });
-      dispatch({
-        type: 'ADD_REPOSITORIES',
-        payload: {
-          repositories: data.search.nodes,
-        },
-      });
+      dispatch(actionCreate(EActionType.SET_REQUEST_LIMIT, { requestLimit: data.rateLimit.remaining }));
+      dispatch(actionCreate(EActionType.ADD_REPOSITORIES, { repositories: data.search.nodes }));
 
       if (data.search.pageInfo.hasNextPage && refetchLimit > 0) {
         setCursor(data.search.pageInfo.endCursor);
@@ -44,7 +35,7 @@ function Table(): JSX.Element {
     return <div style={{ textAlign: 'center' }}>Error ${error}</div>;
   }
 
-  return <div style={{ textAlign: 'center' }}>data</div>;
+  return <div style={{ textAlign: 'center' }}>repo count: {repositories.length}</div>;
 }
 
 export default Table;
