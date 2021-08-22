@@ -1,10 +1,11 @@
 import React, { createContext, useReducer } from 'react';
+import { normalizeProject } from '../App/normalize';
 import { EActionType, IState, TActions } from './types';
 
 const initialState: IState = {
   projectName: '',
   requestLimit: 0,
-  repositories: [],
+  projects: [],
 };
 
 export const store = createContext<{ state: IState; dispatch: React.Dispatch<any> }>({
@@ -31,18 +32,22 @@ export default function StateProvider({ children }: { children: React.ReactNode 
       }
 
       case EActionType.ADD_REPOSITORIES: {
-        const { projectName } = state;
-        const repositories = action.payload.repositories.filter(({ name }) => name.includes(projectName));
+        const { projectName, projects } = state;
+        const createdProjects = action.payload.projects.filter(({ forks }) =>
+          forks.nodes[0]?.name.includes(projectName),
+        );
+        const normalizedProject = createdProjects.map(normalizeProject);
+
         return {
           ...state,
-          repositories: [...state.repositories, ...repositories],
+          projects: [...projects, ...normalizedProject],
         };
       }
 
       case EActionType.CLEAR_REPOSITORIES: {
         return {
           ...state,
-          repositories: [],
+          projects: [],
         };
       }
 

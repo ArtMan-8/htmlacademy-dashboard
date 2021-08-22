@@ -1,3 +1,5 @@
+import { INormalizedProject } from '../App/normalize';
+
 export enum EActionType {
   SET_PROJECT_NAME = 'SET_PROJECT_NAME',
   SET_REQUEST_LIMIT = 'SET_REQUEST_LIMIT',
@@ -8,11 +10,7 @@ export enum EActionType {
 export interface IState {
   projectName: string;
   requestLimit: number;
-  repositories: {
-    id: string;
-    name: string;
-    url: string;
-  }[];
+  projects: INormalizedProject[];
 }
 
 interface Actions {
@@ -23,11 +21,7 @@ interface Actions {
     requestLimit: number;
   };
   [EActionType.ADD_REPOSITORIES]: {
-    repositories: {
-      id: string;
-      name: string;
-      url: string;
-    }[];
+    projects: Record<any, any>[];
   };
   [EActionType.CLEAR_REPOSITORIES]: undefined;
 }
