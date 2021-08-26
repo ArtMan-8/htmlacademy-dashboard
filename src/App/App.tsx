@@ -10,7 +10,7 @@ import Search from '../components/Search';
 import Table from '../components/Table/Table';
 
 export default function App(): JSX.Element {
-  const [refetchLimit, setRefetchLimit] = useState(10);
+  const [refetchLimit, setRefetchLimit] = useState(50);
   const [cursor, setCursor] = useState<null | string>(null);
   const { state, dispatch } = useContext(store);
   const { projectName } = state;
@@ -21,7 +21,7 @@ export default function App(): JSX.Element {
     variables: {
       projectName,
       after: cursor,
-      first: 100,
+      first: 10,
     },
     onCompleted() {
       dispatch(actionCreate(EActionType.SET_REQUEST_LIMIT, { requestLimit: data.rateLimit.remaining }));

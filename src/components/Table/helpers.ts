@@ -1,3 +1,5 @@
+import { INormalizedProject } from '../../App/helpers';
+
 export type Order = 'asc' | 'desc';
 
 export function descendingComparator<T>(a: T, b: T, orderBy: keyof T): number {
@@ -30,3 +32,54 @@ export function stableSort<T>(array: T[], comparator: (a: T, b: T) => number): T
 
   return stabilizedThis.map((el) => el[0]);
 }
+
+export function generateRows(projects: INormalizedProject[]): {
+  authorName: string;
+  authorUrl: string;
+  repoName: string;
+  repoUrl: string;
+  mentorName: string;
+  mentorUrl: string;
+  lastPullRequestName: string;
+  lastPullRequestUrl: string;
+  lastCommit: string;
+}[] {
+  return projects.map(
+    ({
+      authorName,
+      authorUrl,
+      repoName,
+      repoUrl,
+      mentorName,
+      mentorUrl,
+      lastPullRequestName,
+      lastPullRequestUrl,
+      lastCommit,
+    }) => ({
+      authorName,
+      authorUrl,
+      repoName,
+      repoUrl,
+      mentorName,
+      mentorUrl,
+      lastPullRequestName,
+      lastPullRequestUrl,
+      lastCommit,
+    }),
+  );
+}
+
+export interface IheadCells {
+  id: 'authorName' | 'repoName' | 'lastCommit' | 'mentorName' | 'lastPullRequestName';
+  align: 'left' | 'center' | 'right';
+  padding: 'none' | 'normal';
+  label: string;
+}
+
+export const headCells: IheadCells[] = [
+  { id: 'authorName', align: 'left', padding: 'normal', label: 'Author' },
+  { id: 'repoName', align: 'left', padding: 'normal', label: 'Repository' },
+  { id: 'lastCommit', align: 'center', padding: 'normal', label: 'Last Commit' },
+  { id: 'mentorName', align: 'left', padding: 'normal', label: 'Mentor' },
+  { id: 'lastPullRequestName', align: 'left', padding: 'normal', label: 'Last Pull Request' },
+];

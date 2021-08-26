@@ -1,4 +1,4 @@
-import { INormalizedProject } from '../App/normalize';
+import { IProject, INormalizedProject } from '../App/helpers';
 
 export enum EActionType {
   SET_PROJECT_NAME = 'SET_PROJECT_NAME',
@@ -21,7 +21,7 @@ interface Actions {
     requestLimit: number;
   };
   [EActionType.ADD_REPOSITORIES]: {
-    projects: Record<any, any>[];
+    projects: IProject[];
   };
   [EActionType.CLEAR_REPOSITORIES]: undefined;
 }

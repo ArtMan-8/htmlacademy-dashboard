@@ -25,13 +25,13 @@ export const REPO_STUDENT_INFO = gql`
           id
           url
           name
-          createdAt
           pushedAt
           assignableUsers(first: 1) {
             nodes {
               ... on User {
                 name
                 login
+                url
               }
             }
           }
@@ -44,14 +44,15 @@ export const REPO_STUDENT_INFO = gql`
 export const REPO_ACADEMY_INFO = gql`
   fragment RepoAcademyInfo on Repository {
     pullRequests(last: 25) {
-      totalCount
       nodes {
         headRefName
+        url
         merged
         participants(first: 5) {
           nodes {
             ... on User {
               name
+              login
               url
             }
           }

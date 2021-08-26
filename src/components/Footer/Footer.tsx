@@ -10,7 +10,7 @@ export default function Footer(): JSX.Element {
   return (
     <footer className={classes.footer}>
       <Typography>
-        edited by{' '}
+        created by{' '}
         <b>
           <Link href="https://github.com/ArtMan-8">ArtMan-8</Link>
         </b>

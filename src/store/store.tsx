@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { normalizeProject } from '../App/normalize';
+import { filteringProjects, normalizeProject } from '../App/helpers';
 import { EActionType, IState, TActions } from './types';
 
 const initialState: IState = {
@@ -33,14 +33,16 @@ export default function StateProvider({ children }: { children: React.ReactNode 
 
       case EActionType.ADD_REPOSITORIES: {
         const { projectName, projects } = state;
-        const createdProjects = action.payload.projects.filter(({ forks }) =>
-          forks.nodes[0]?.name.includes(projectName),
-        );
+
+        const createdProjects = action.payload.projects.reduce(filteringProjects(projectName), []);
         const normalizedProject = createdProjects.map(normalizeProject);
+
+        const existsRepositoryUrl = projects.map(({ repoUrl }) => repoUrl);
+        const newRepository = normalizedProject.filter(({ repoUrl }) => !existsRepositoryUrl.includes(repoUrl));
 
         return {
           ...state,
-          projects: [...projects, ...normalizedProject],
+          projects: [...projects, ...newRepository],
         };
       }
 
@@ -52,7 +54,7 @@ export default function StateProvider({ children }: { children: React.ReactNode 
       }
 
       default:
-        throw new Error(`Unknown action action type`);
+        throw new Error(`Unknown action type`);
     }
   }, initialState);
 
