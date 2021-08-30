@@ -1,10 +1,11 @@
 import React, { createContext, useReducer } from 'react';
 import { filteringProjects, normalizeProject } from '../App/helpers';
-import { EActionType, IState, TActions } from './types';
+import { EActionType, EFetchStatus, IState, TActions } from './types';
 
 const initialState: IState = {
   projectName: '',
   requestLimit: 0,
+  fetchStatus: EFetchStatus.IDLE,
   projects: [],
 };
 
@@ -43,6 +44,13 @@ export default function StateProvider({ children }: { children: React.ReactNode 
         return {
           ...state,
           projects: [...projects, ...newRepository],
+        };
+      }
+
+      case EActionType.UPDATE_FETCH_STATUS: {
+        return {
+          ...state,
+          ...action.payload,
         };
       }
 

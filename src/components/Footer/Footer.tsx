@@ -9,15 +9,15 @@ export default function Footer(): JSX.Element {
 
   return (
     <footer className={classes.footer}>
-      <Typography>
+      <Typography align="center">
         created by{' '}
         <b>
           <Link href="https://github.com/ArtMan-8">ArtMan-8</Link>
         </b>
       </Typography>
 
-      <Typography>
-        request limit - <b>{state?.requestLimit || '...'}</b>
+      <Typography align="center">
+        request limit: <b>{state?.requestLimit || '...'}</b>
       </Typography>
     </footer>
   );

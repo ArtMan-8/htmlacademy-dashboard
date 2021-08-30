@@ -4,12 +4,21 @@ export enum EActionType {
   SET_PROJECT_NAME = 'SET_PROJECT_NAME',
   SET_REQUEST_LIMIT = 'SET_REQUEST_LIMIT',
   ADD_REPOSITORIES = 'ADD_REPOSITORIES',
+  UPDATE_FETCH_STATUS = 'UPDATE_FETCH_STATUS',
   CLEAR_REPOSITORIES = 'CLEAR_REPOSITORIES',
+}
+
+export enum EFetchStatus {
+  IDLE = 'idle',
+  PENDING = 'pending',
+  SUCCEEDED = 'succeeded',
+  FAILED = 'failed',
 }
 
 export interface IState {
   projectName: string;
   requestLimit: number;
+  fetchStatus: EFetchStatus;
   projects: INormalizedProject[];
 }
 
@@ -22,6 +31,9 @@ interface Actions {
   };
   [EActionType.ADD_REPOSITORIES]: {
     projects: IProject[];
+  };
+  [EActionType.UPDATE_FETCH_STATUS]: {
+    fetchStatus: EFetchStatus;
   };
   [EActionType.CLEAR_REPOSITORIES]: undefined;
 }

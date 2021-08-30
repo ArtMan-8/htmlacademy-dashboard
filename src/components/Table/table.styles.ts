@@ -10,7 +10,7 @@ export default makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2),
     },
     table: {
-      minWidth: 750,
+      minWidth: 1000,
     },
     visuallyHidden: {
       border: 0,
