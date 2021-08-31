@@ -142,10 +142,11 @@ export default function DataTable(): JSX.Element {
         </TableContainer>
 
         <TablePagination
-          rowsPerPageOptions={[10, 25, 50]}
+          rowsPerPageOptions={[10, 20, 50]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
+          labelRowsPerPage="Записей на страницу"
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}

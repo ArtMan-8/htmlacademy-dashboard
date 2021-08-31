@@ -1,16 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { CircularProgress } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { GET_STUDENT_REPOS } from './GetRepos.query';
 import { store } from '../store/store';
 import { actionCreate, EActionType, EFetchStatus } from '../store/types';
-import Layout from '../layouts/Main';
-import Table from '../components/Table/Table';
-import SelectProjects from '../components/SelectProjects';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import styles from './app.styles';
 
-export default function App(): JSX.Element {
-  const [refetchLimit, setRefetchLimit] = useState(50);
+export default withStyles(styles)(function App(): JSX.Element {
+  const [refetchLimit, setRefetchLimit] = useState(0);
   const [cursor, setCursor] = useState<null | string>(null);
   const { state, dispatch } = useContext(store);
   const { projectName, fetchStatus } = state;
@@ -19,7 +18,7 @@ export default function App(): JSX.Element {
     variables: {
       projectName,
       after: cursor,
-      first: 10,
+      first: 20,
     },
     onCompleted() {
       dispatch(actionCreate(EActionType.SET_REQUEST_LIMIT, { requestLimit: data.rateLimit.remaining }));
@@ -52,22 +51,8 @@ export default function App(): JSX.Element {
 
   return (
     <>
-      <CssBaseline />
-      <Layout>
-        {/* <Search /> */}
-
-        <SelectProjects />
-
-        {isLoading && (
-          <div style={{ textAlign: 'center' }}>
-            <CircularProgress />
-          </div>
-        )}
-
-        {isError && <div style={{ textAlign: 'center' }}>Error ${error}</div>}
-
-        {isSuccess && <Table />}
-      </Layout>
+      <Header />
+      <Footer />
     </>
   );
-}
+});

@@ -6,8 +6,8 @@ export default createStyles({
       display: 'flex',
       flexDirection: 'column',
       minHeight: '100vh',
+      backgroundColor: '#f8f8f8',
     },
-    main: {},
     footer: {
       marginTop: 'auto',
     },

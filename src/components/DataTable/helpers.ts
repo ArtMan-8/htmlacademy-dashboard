@@ -77,9 +77,9 @@ export interface IheadCells {
 }
 
 export const headCells: IheadCells[] = [
-  { id: 'authorName', align: 'left', padding: 'normal', label: 'Author' },
-  { id: 'repoName', align: 'left', padding: 'normal', label: 'Repository' },
-  { id: 'lastCommit', align: 'center', padding: 'normal', label: 'Last Commit' },
-  { id: 'mentorName', align: 'left', padding: 'normal', label: 'Mentor' },
-  { id: 'lastPullRequestName', align: 'left', padding: 'normal', label: 'Last Pull Request' },
+  { id: 'authorName', align: 'left', padding: 'normal', label: 'Автор' },
+  { id: 'repoName', align: 'left', padding: 'normal', label: 'Репозиторий' },
+  { id: 'lastCommit', align: 'center', padding: 'normal', label: 'Последний commit' },
+  { id: 'mentorName', align: 'left', padding: 'normal', label: 'Наставник' },
+  { id: 'lastPullRequestName', align: 'left', padding: 'normal', label: 'Последний PullRquest' },
 ];

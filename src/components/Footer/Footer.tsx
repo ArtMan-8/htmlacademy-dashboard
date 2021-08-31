@@ -10,14 +10,14 @@ export default function Footer(): JSX.Element {
   return (
     <footer className={classes.footer}>
       <Typography align="center">
-        created by{' '}
+        создано{' '}
         <b>
           <Link href="https://github.com/ArtMan-8">ArtMan-8</Link>
         </b>
       </Typography>
 
       <Typography align="center">
-        request limit: <b>{state?.requestLimit || '...'}</b>
+        лимит запросов: <b>{state?.requestLimit || '...'}</b>
       </Typography>
     </footer>
   );
