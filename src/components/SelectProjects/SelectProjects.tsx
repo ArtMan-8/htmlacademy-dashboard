@@ -9,7 +9,7 @@ import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import SearchIcon from '@material-ui/icons/Search';
 import useStyles from './selectProject.styles';
-import { Courses } from '../../App/constants';
+import { Courses } from '../../constants';
 import { actionCreate, EActionType, EFetchStatus } from '../../store/types';
 import { store } from '../../store/store';
 
@@ -48,76 +48,78 @@ export default function SelectProjects(): JSX.Element {
   const isLoading = fetchStatus === EFetchStatus.PENDING;
 
   return (
-    <form className={classes.selectProjectContainer} onSubmit={onQuerySubmit}>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="select-course-label">Выберите курс</InputLabel>
-        <Select
-          labelId="select-course-label"
-          id="select-course"
-          required
+    <div className={classes.selectProject}>
+      <form className={classes.form} onSubmit={onQuerySubmit}>
+        <FormControl className={classes.formControl}>
+          <InputLabel id="select-course-label">Выберите курс</InputLabel>
+          <Select
+            labelId="select-course-label"
+            id="select-course"
+            required
+            disabled={isLoading}
+            value={selectedCourse}
+            onChange={handleChangeCourse}
+            label="course"
+          >
+            {Object.entries(Courses).map(([key, value]) => (
+              <MenuItem key={key} value={key}>
+                {value.description}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl className={classes.formControl}>
+          <InputLabel id="select-project-label">Выберите проект/ы</InputLabel>
+          <Select
+            labelId="select-project-label"
+            id="select-project"
+            multiple
+            required
+            disabled={isLoading}
+            value={selectedProjects}
+            onChange={handleSelectProject}
+            input={<Input id="select-multiple-chip" />}
+            renderValue={(selected) => (
+              <div className={classes.chips}>
+                {(selected as string[]).map((value) => (
+                  <Chip key={value} label={value} className={classes.chip} />
+                ))}
+              </div>
+            )}
+          >
+            {Courses[selectedCourse]?.projects.map((project) => (
+              <MenuItem key={project} value={project}>
+                {project}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl className={classes.formControl}>
+          <TextField
+            label="Номер потока"
+            id="select-course-number"
+            type="number"
+            required
+            disabled={isLoading}
+            value={courseNumber}
+            onChange={handleInputCourseNumber}
+            className={classes.inputNumber}
+          />
+        </FormControl>
+
+        <Button
+          className={classes.submit}
+          type="submit"
           disabled={isLoading}
-          value={selectedCourse}
-          onChange={handleChangeCourse}
-          label="course"
+          variant="contained"
+          color="primary"
+          endIcon={<SearchIcon />}
         >
-          {Object.entries(Courses).map(([key, value]) => (
-            <MenuItem key={key} value={key}>
-              {value.description}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <FormControl className={classes.formControl}>
-        <InputLabel id="select-project-label">Выберите проект/ы</InputLabel>
-        <Select
-          labelId="select-project-label"
-          id="select-project"
-          multiple
-          required
-          disabled={isLoading}
-          value={selectedProjects}
-          onChange={handleSelectProject}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div className={classes.chips}>
-              {(selected as string[]).map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-        >
-          {Courses[selectedCourse]?.projects.map((project) => (
-            <MenuItem key={project} value={project}>
-              {project}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <FormControl className={classes.formControl}>
-        <TextField
-          label="Номер потока"
-          id="select-course-number"
-          type="number"
-          required
-          disabled={isLoading}
-          value={courseNumber}
-          onChange={handleInputCourseNumber}
-          className={classes.inputNumber}
-        />
-      </FormControl>
-
-      <Button
-        className={classes.submit}
-        type="submit"
-        disabled={isLoading}
-        variant="contained"
-        color="primary"
-        endIcon={<SearchIcon />}
-      >
-        Запустить поиск проектов
-      </Button>
-    </form>
+          Найти проекты
+        </Button>
+      </form>
+    </div>
   );
 }

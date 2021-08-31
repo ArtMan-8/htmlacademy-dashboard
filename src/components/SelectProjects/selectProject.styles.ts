@@ -2,11 +2,18 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 export default makeStyles((theme: Theme) =>
   createStyles({
-    selectProjectContainer: {
-      display: 'flex',
-      flexDirection: 'column',
+    selectProject: {
       margin: '20px auto',
       maxWidth: 600,
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      margin: '20px',
+      padding: 20,
+      backgroundColor: 'white',
+      borderRadius: 4,
+      boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
     },
     inputNumber: {
       '& input': {
