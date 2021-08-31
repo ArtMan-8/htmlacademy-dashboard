@@ -8,18 +8,19 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import useStyles from './table.styles';
+import useStyles from './dataTable.styles';
 import { generateRows, getComparator, headCells, IheadCells, Order, stableSort } from './helpers';
 import { store } from '../../store/store';
+import NotFound from '../NotFound/NotFound';
 
-interface EnhancedTableProps {
+interface IEnhancedTableHead {
   classes: ReturnType<typeof useStyles>;
   onRequestSort: (event: React.MouseEvent<unknown>, property: IheadCells['id']) => void;
   order: Order;
   orderBy: string;
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+function EnhancedTableHead(props: IEnhancedTableHead) {
   const { classes, order, orderBy, onRequestSort } = props;
   const createSortHandler = (property: IheadCells['id']) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property);
@@ -65,7 +66,7 @@ export default function DataTable(): JSX.Element {
   const { projects } = state;
 
   if (projects.length === 0) {
-    return <div style={{ textAlign: 'center' }}>repo not found</div>;
+    return <NotFound />;
   }
 
   const rows = generateRows(projects);

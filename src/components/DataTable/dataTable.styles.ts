@@ -1,13 +1,12 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles((theme: Theme) =>
+export default makeStyles(() =>
   createStyles({
     root: {
       width: '100%',
     },
     paper: {
-      width: '100%',
-      marginBottom: theme.spacing(2),
+      margin: '20px',
     },
     table: {
       minWidth: 1000,
