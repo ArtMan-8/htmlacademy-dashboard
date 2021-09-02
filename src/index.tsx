@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import { CssBaseline } from '@material-ui/core';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import StateProvider from './store/store';
 import App from './App';
@@ -17,7 +16,6 @@ const client = new ApolloClient({
 ReactDom.render(
   <ApolloProvider client={client}>
     <StateProvider>
-      <CssBaseline />
       <App />
     </StateProvider>
   </ApolloProvider>,
