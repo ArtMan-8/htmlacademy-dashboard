@@ -1,23 +1,16 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import StateProvider from './store/store';
+import { ApolloProvider } from '@apollo/client';
+import StoreProvider from './store/store';
 import App from './App';
-
-const client = new ApolloClient({
-  uri: 'https://api.github.com/graphql',
-  headers: {
-    authorization: `Bearer ${process.env.GRAPHQL_API_KEY}`,
-  },
-  connectToDevTools: true,
-  cache: new InMemoryCache(),
-});
+import createApolloClient from './api/apollo.config';
+import { GITHUB_GRAPHQL_ENDPOINT } from './constants';
 
 ReactDom.render(
-  <ApolloProvider client={client}>
-    <StateProvider>
+  <ApolloProvider client={createApolloClient(GITHUB_GRAPHQL_ENDPOINT)}>
+    <StoreProvider>
       <App />
-    </StateProvider>
+    </StoreProvider>
   </ApolloProvider>,
   document.querySelector('#root'),
 );

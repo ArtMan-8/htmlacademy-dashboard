@@ -2,14 +2,14 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 export default makeStyles((theme: Theme) =>
   createStyles({
-    selectProject: {
+    search: {
       margin: '20px auto',
       maxWidth: 600,
     },
     form: {
       display: 'flex',
       flexDirection: 'column',
-      margin: '20px',
+      margin: 20,
       padding: 20,
       backgroundColor: 'white',
       borderRadius: 4,
@@ -21,7 +21,7 @@ export default makeStyles((theme: Theme) =>
       },
     },
     submit: {
-      margin: '30px auto 10px',
+      margin: '30px auto',
       width: 'max-content',
     },
     formControl: {

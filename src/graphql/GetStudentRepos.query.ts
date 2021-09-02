@@ -12,6 +12,7 @@ export const GET_STUDENT_REPOS = gql`
       ...PageInfo
       nodes {
         ... on Repository {
+          url
           ...RepoStudentInfo
           ...RepoAcademyInfo
         }

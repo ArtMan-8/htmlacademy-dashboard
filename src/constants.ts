@@ -1,3 +1,17 @@
+export const GITHUB_GRAPHQL_ENDPOINT = 'https://api.github.com/graphql';
+
+export const PROXY_URL = 'https://hexlet-allorigins.herokuapp.com';
+
+export const Author = {
+  NAME: 'ArtMan-8',
+  URL: 'https://github.com/ArtMan-8',
+};
+
+export const NotFound = {
+  TITLE: 'не определён',
+  URL: 'https://github.com/404',
+};
+
 interface ICourses {
   [key: string]: {
     organization: string;

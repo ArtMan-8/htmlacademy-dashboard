@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import Table from '@material-ui/core/Table';
+import React, { useContext, useState, useEffect } from 'react';
+import MuiTable from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -8,10 +8,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import useStyles from './dataTable.styles';
+import useStyles from './table.styles';
 import { generateRows, getComparator, headCells, IheadCells, Order, stableSort } from './helpers';
 import { store } from '../../store/store';
-import NotFound from '../NotFound/NotFound';
+import NotFound from '../../components/NotFound/NotFound';
+import { useMediaQuery } from '@material-ui/core';
 
 interface IEnhancedTableHead {
   classes: ReturnType<typeof useStyles>;
@@ -55,8 +56,10 @@ function EnhancedTableHead(props: IEnhancedTableHead) {
   );
 }
 
-export default function DataTable(): JSX.Element {
+export default function Table(): JSX.Element {
   const classes = useStyles();
+  const isDesktop = useMediaQuery('(min-height: 950px)');
+
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<IheadCells['id']>('authorName');
   const [page, setPage] = useState(0);
@@ -64,6 +67,10 @@ export default function DataTable(): JSX.Element {
 
   const { state } = useContext(store);
   const { projects } = state;
+
+  useEffect(() => {
+    setRowsPerPage(isDesktop ? 20 : 10);
+  }, [isDesktop]);
 
   if (projects.length === 0) {
     return <NotFound />;
@@ -92,7 +99,7 @@ export default function DataTable(): JSX.Element {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableContainer>
-          <Table className={classes.table} aria-labelledby="tableTitle" size={'small'} aria-label="enhanced table">
+          <MuiTable className={classes.table} aria-labelledby="tableTitle" size={'small'} aria-label="enhanced table">
             <EnhancedTableHead classes={classes} order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
 
             <TableBody>
@@ -138,7 +145,7 @@ export default function DataTable(): JSX.Element {
                 </TableRow>
               )}
             </TableBody>
-          </Table>
+          </MuiTable>
         </TableContainer>
 
         <TablePagination

@@ -9,7 +9,9 @@ export default createStyles({
       backgroundColor: '#f5f5f5',
     },
     header: {},
-    main: {},
+    main: {
+      marginTop: 64,
+    },
     footer: {
       marginTop: 'auto',
     },

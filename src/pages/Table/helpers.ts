@@ -1,4 +1,4 @@
-import { INormalizedProject } from '../../App/helpers';
+import { INormalizedProject } from '../../components/DataLoader/helpers';
 
 export type Order = 'asc' | 'desc';
 

@@ -1,7 +1,7 @@
-import { IProject, INormalizedProject } from '../App/helpers';
+import { IProject, INormalizedProject } from '../components/DataLoader/helpers';
 
 export enum EActionType {
-  SET_PROJECT_NAME = 'SET_PROJECT_NAME',
+  SET_SELECTED_PROJECTS = 'SET_SELECTED_PROJECTS',
   SET_REQUEST_LIMIT = 'SET_REQUEST_LIMIT',
   ADD_REPOSITORIES = 'ADD_REPOSITORIES',
   UPDATE_FETCH_STATUS = 'UPDATE_FETCH_STATUS',
@@ -16,15 +16,15 @@ export enum EFetchStatus {
 }
 
 export interface IState {
-  projectName: string;
+  selectedProjects: string[];
   requestLimit: number;
   fetchStatus: EFetchStatus;
   projects: INormalizedProject[];
 }
 
-interface Actions {
-  [EActionType.SET_PROJECT_NAME]: {
-    projectName: string;
+export interface IActions {
+  [EActionType.SET_SELECTED_PROJECTS]: {
+    selectedProjects: string[];
   };
   [EActionType.SET_REQUEST_LIMIT]: {
     requestLimit: number;
@@ -49,7 +49,7 @@ type ActionMap<M extends { [index: string]: any }> = {
       };
 };
 
-export type TActions = ActionMap<Actions>[keyof ActionMap<Actions>];
+export type TActions = ActionMap<IActions>[keyof ActionMap<IActions>];
 
 function createAction<Obj extends { [index: string]: any }>() {
   return function <Key extends keyof Obj>(name: Key, ...args: Obj[Key] extends undefined ? [] : [Obj[Key]]) {
@@ -57,4 +57,4 @@ function createAction<Obj extends { [index: string]: any }>() {
   };
 }
 
-export const actionCreate = createAction<Actions>();
+export const actionCreate = createAction<IActions>();

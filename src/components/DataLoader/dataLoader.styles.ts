@@ -2,16 +2,19 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() =>
   createStyles({
-    notFound: {
-      margin: '20px auto',
+    dataLoader: {
+      margin: 20,
       padding: 20,
-      width: 'max-content',
-      textAlign: 'center',
-      fontSize: 16,
-      fontWeight: 500,
+    },
+    progressBar: {
+      margin: 20,
     },
     button: {
-      margin: '20px auto 0',
+      margin: 5,
+    },
+    note: {
+      marginTop: 20,
+      fontSize: 12,
     },
   }),
 );

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -8,19 +8,22 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import SearchIcon from '@material-ui/icons/Search';
-import useStyles from './selectProject.styles';
-import { Courses } from '../../constants';
+import { Courses, NotFound } from '../../constants';
 import { actionCreate, EActionType, EFetchStatus } from '../../store/types';
 import { store } from '../../store/store';
+import { generateOriginalCourseUrl, getCourseNumber } from './helpers';
+import DataLoader from '../../components/DataLoader';
+import useStyles from './search.styles';
 
-export default function SelectProjects(): JSX.Element {
+export default function Search(): JSX.Element {
   const classes = useStyles();
-  const { state, dispatch } = useContext(store);
-  const { fetchStatus } = state;
 
-  const [selectedProjects, setProjects] = useState<string[]>([]);
   const [selectedCourse, setCourse] = useState<string>('');
-  const [courseNumber, setCourseNumber] = useState<string>('');
+  const [chosenProjects, setProjects] = useState<string[]>([]);
+  const [courseNumber, setCourseNumber] = useState<string>(NotFound.TITLE);
+
+  const { state, dispatch } = useContext(store);
+  const { fetchStatus, projects } = state;
 
   const handleSelectProject = (event: React.ChangeEvent<{ value: unknown }>) => {
     setProjects(event.target.value as string[]);
@@ -28,27 +31,31 @@ export default function SelectProjects(): JSX.Element {
 
   const handleChangeCourse = (event: React.ChangeEvent<{ value: unknown }>) => {
     setCourse(event.target.value as string);
+    setCourseNumber('определяем номер потока ...');
     setProjects([]);
-  };
-
-  const handleInputCourseNumber = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setCourseNumber(event.target.value as string);
   };
 
   const onQuerySubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const sp = selectedProjects.map((project) => `${project}-${courseNumber}`);
-    const projectName = sp[0];
+    const selectedProjects = chosenProjects.map((project) => `${project}-${courseNumber}`);
 
-    dispatch(actionCreate(EActionType.SET_PROJECT_NAME, { projectName }));
     dispatch(actionCreate(EActionType.CLEAR_REPOSITORIES));
+    dispatch(actionCreate(EActionType.SET_SELECTED_PROJECTS, { selectedProjects: selectedProjects }));
     dispatch(actionCreate(EActionType.UPDATE_FETCH_STATUS, { fetchStatus: EFetchStatus.PENDING }));
   };
+
+  useEffect(() => {
+    fetch(generateOriginalCourseUrl(selectedCourse))
+      .then((response) => response.json())
+      .then(({ contents }) => {
+        setCourseNumber(getCourseNumber(contents));
+      });
+  }, [selectedCourse]);
 
   const isLoading = fetchStatus === EFetchStatus.PENDING;
 
   return (
-    <div className={classes.selectProject}>
+    <div className={classes.search}>
       <form className={classes.form} onSubmit={onQuerySubmit}>
         <FormControl className={classes.formControl}>
           <InputLabel id="select-course-label">Выберите курс</InputLabel>
@@ -77,7 +84,7 @@ export default function SelectProjects(): JSX.Element {
             multiple
             required
             disabled={isLoading}
-            value={selectedProjects}
+            value={chosenProjects}
             onChange={handleSelectProject}
             input={<Input id="select-multiple-chip" />}
             renderValue={(selected) => (
@@ -100,11 +107,8 @@ export default function SelectProjects(): JSX.Element {
           <TextField
             label="Номер потока"
             id="select-course-number"
-            type="number"
-            required
-            disabled={isLoading}
+            disabled={true}
             value={courseNumber}
-            onChange={handleInputCourseNumber}
             className={classes.inputNumber}
           />
         </FormControl>
@@ -112,7 +116,7 @@ export default function SelectProjects(): JSX.Element {
         <Button
           className={classes.submit}
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || !Number(courseNumber) || !chosenProjects.length}
           variant="contained"
           color="primary"
           endIcon={<SearchIcon />}
@@ -120,6 +124,8 @@ export default function SelectProjects(): JSX.Element {
           Найти проекты
         </Button>
       </form>
+
+      {(isLoading || projects.length > 0) && <DataLoader />}
     </div>
   );
 }
