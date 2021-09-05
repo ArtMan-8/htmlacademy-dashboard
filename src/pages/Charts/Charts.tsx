@@ -1,27 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
+import { Doughnut } from 'react-chartjs-2';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import { store } from '../../store/store';
-import NotFound from '../../components/NotFound';
+import NotFoundRepo from '../../components/NotFoundRepo';
 import useStyles from './charts.styles';
+import { getDataForDoughnutChart } from './helpers';
 
 export default function Charts(): JSX.Element {
   const classes = useStyles();
+  const refDoughnut = useRef();
 
   const { state } = useContext(store);
   const { projects } = state;
 
   if (projects.length === 0) {
-    return <NotFound />;
+    return <NotFoundRepo />;
   }
+
+  const { data, options } = getDataForDoughnutChart(projects);
 
   return (
     <Paper className={classes.charts}>
-      <Typography align="center" className={classes.note}>
-        Графики только готовятся...
-        <br />
-        будут позже
-      </Typography>
+      <Doughnut ref={refDoughnut} data={data} options={options} />
     </Paper>
   );
 }

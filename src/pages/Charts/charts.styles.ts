@@ -4,7 +4,7 @@ export default makeStyles(() =>
   createStyles({
     charts: {
       margin: '20px auto',
-      maxWidth: 600,
+      maxWidth: 700,
       padding: 20,
     },
     note: {},

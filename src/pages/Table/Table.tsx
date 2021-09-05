@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import useStyles from './table.styles';
 import { generateRows, getComparator, headCells, IheadCells, Order, stableSort } from './helpers';
 import { store } from '../../store/store';
-import NotFound from '../../components/NotFound/NotFound';
+import NotFound from '../../components/NotFoundRepo/NotFoundRepo';
 import { useMediaQuery } from '@material-ui/core';
 
 interface IEnhancedTableHead {

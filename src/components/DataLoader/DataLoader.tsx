@@ -19,7 +19,7 @@ import useStyles from './dataLoader.styles';
 export default function DataLoader(): JSX.Element {
   const classes = useStyles();
 
-  // const [refetchLimit, setRefetchLimit] = useState(0);
+  const [refetchLimit, setRefetchLimit] = useState(2);
   const [cursor, setCursor] = useState<string | null>(null);
 
   const { state, dispatch } = useContext(store);
@@ -35,12 +35,12 @@ export default function DataLoader(): JSX.Element {
       dispatch(actionCreate(EActionType.SET_REQUEST_LIMIT, { requestLimit: data.rateLimit.remaining }));
       dispatch(actionCreate(EActionType.ADD_REPOSITORIES, { projects: data.search.nodes }));
 
-      // const hasPage = () => data.search.pageInfo.hasNextPage && refetchLimit > 0;
-      const hasPage = () => data.search.pageInfo.hasNextPage;
+      const hasPage = () => data.search.pageInfo.hasNextPage && refetchLimit > 0;
+      // const hasPage = () => data.search.pageInfo.hasNextPage;
 
       if (hasPage()) {
         setCursor(data.search.pageInfo.endCursor);
-        // setRefetchLimit(refetchLimit - 1);
+        setRefetchLimit(refetchLimit - 1);
       }
 
       if (!hasPage() && selectedProjects.length) {
