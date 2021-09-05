@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import useStyles from './notFound.styles';
+import useStyles from './notFoundRepo.styles';
 
-export default function NotFound(): JSX.Element {
+export default function NotFoundRepo(): JSX.Element {
   const classes = useStyles();
 
   return (
