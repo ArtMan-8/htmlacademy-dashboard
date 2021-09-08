@@ -3,8 +3,8 @@ import { Doughnut } from 'react-chartjs-2';
 import Paper from '@material-ui/core/Paper';
 import { store } from '../../store/store';
 import NotFoundRepo from '../../components/NotFoundRepo';
+import { getDataForDoughnutChart, options } from './helpers';
 import useStyles from './charts.styles';
-import { getDataForDoughnutChart } from './helpers';
 
 export default function Charts(): JSX.Element {
   const classes = useStyles();
@@ -17,7 +17,7 @@ export default function Charts(): JSX.Element {
     return <NotFoundRepo />;
   }
 
-  const { data, options } = getDataForDoughnutChart(projects);
+  const data = getDataForDoughnutChart(projects);
 
   return (
     <Paper className={classes.charts}>

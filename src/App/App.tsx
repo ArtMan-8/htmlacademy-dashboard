@@ -9,6 +9,7 @@ import styles from './app.styles';
 import Search from '../pages/Search';
 import Table from '../pages/Table';
 import Charts from '../pages/Charts';
+import Mentors from '../pages/Mentors';
 
 export default withStyles(styles)(function App(): JSX.Element {
   return (
@@ -19,7 +20,8 @@ export default withStyles(styles)(function App(): JSX.Element {
         <Main>
           <Switch>
             <Route path="/charts" component={Charts} />
-            <Route path="/table" render={() => <Table />} />
+            <Route path="/table" component={Table} />
+            <Route path="/mentors" component={Mentors} />
             <Route path="/" component={Search} />
           </Switch>
         </Main>

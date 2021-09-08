@@ -8,7 +8,28 @@ function getRandomColor(opacity = 1) {
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
 
-export function getDataForDoughnutChart(projects: INormalizedProject[]): Record<any, any> {
+export const options = {
+  plugins: {
+    title: {
+      display: true,
+      text: 'Количество проектов по модулям.',
+    },
+  },
+};
+
+interface IDate {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor: string[];
+    borderColor: string[];
+    borderWidth: number;
+    hoverOffset: number;
+  }[];
+}
+
+export function getDataForDoughnutChart(projects: INormalizedProject[]): IDate {
   const dataForDoughnutChart = projects.reduce((data: Record<string, number>, project) => {
     const lastPR =
       project.lastPullRequestName === NotFound.TITLE ? NotFound.TITLE : project.lastPullRequestName.split('-')[0];
@@ -21,17 +42,8 @@ export function getDataForDoughnutChart(projects: INormalizedProject[]): Record<
 
   const labels = Object.keys(dataForDoughnutChart).sort();
 
-  const options = {
-    plugins: {
-      title: {
-        display: true,
-        text: 'Количество проектов по модулям.',
-      },
-    },
-  };
-
   const data = {
-    labels,
+    labels: labels.map((label) => `На ${label} - ${dataForDoughnutChart[label]} репозиториев`),
     datasets: [
       {
         label: 'Count projects on modules',
@@ -44,5 +56,5 @@ export function getDataForDoughnutChart(projects: INormalizedProject[]): Record<
     ],
   };
 
-  return { data, options };
+  return data;
 }

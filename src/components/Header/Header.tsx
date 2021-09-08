@@ -12,6 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import PeopleIcon from '@material-ui/icons/People';
 import ListItemText from '@material-ui/core/ListItemText';
 import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import TocIcon from '@material-ui/icons/Toc';
@@ -29,6 +30,11 @@ const navLinks = {
     title: 'Таблица проектов',
     icon: TocIcon,
     url: '/table',
+  },
+  mentors: {
+    title: 'Наставники',
+    icon: PeopleIcon,
+    url: '/mentors',
   },
   charts: {
     title: 'Графики',

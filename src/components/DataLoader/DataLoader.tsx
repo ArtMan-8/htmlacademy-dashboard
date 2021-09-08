@@ -45,7 +45,7 @@ export default function DataLoader(): JSX.Element {
 
       if (!hasPage() && selectedProjects.length) {
         setCursor(null);
-        const [_, ...restProjects] = selectedProjects;
+        const [, ...restProjects] = selectedProjects;
         dispatch(actionCreate(EActionType.SET_SELECTED_PROJECTS, { selectedProjects: restProjects }));
       }
 
@@ -87,6 +87,10 @@ export default function DataLoader(): JSX.Element {
 
           <Button variant="contained" color="primary" component={Link} to="/charts" className={classes.button}>
             графики
+          </Button>
+
+          <Button variant="contained" color="primary" component={Link} to="/mentors" className={classes.button}>
+            Наставники
           </Button>
 
           <Typography align="center" className={classes.note}>

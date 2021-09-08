@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import MuiTable from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import { useMediaQuery } from '@material-ui/core';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
@@ -11,8 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import useStyles from './table.styles';
 import { generateRows, getComparator, headCells, IheadCells, Order, stableSort } from './helpers';
 import { store } from '../../store/store';
-import NotFound from '../../components/NotFoundRepo/NotFoundRepo';
-import { useMediaQuery } from '@material-ui/core';
+import NotFoundRepo from '../../components/NotFoundRepo';
 
 interface IEnhancedTableHead {
   classes: ReturnType<typeof useStyles>;
@@ -73,7 +73,7 @@ export default function Table(): JSX.Element {
   }, [isDesktop]);
 
   if (projects.length === 0) {
-    return <NotFound />;
+    return <NotFoundRepo />;
   }
 
   const rows = generateRows(projects);
