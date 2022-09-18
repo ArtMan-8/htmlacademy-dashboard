@@ -9,7 +9,6 @@
     "dashboard",
     "statistics"
   ],
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "build": "webpack --mode=production",
