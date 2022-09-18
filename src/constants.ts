@@ -1,7 +1,5 @@
 export const GITHUB_GRAPHQL_ENDPOINT = 'https://api.github.com/graphql';
 
-export const PROXY_URL = 'https://hexlet-allorigins.herokuapp.com';
-
 export const Author = {
   NAME: 'ArtMan-8',
   URL: 'https://github.com/ArtMan-8',
