@@ -1,7 +1,9 @@
-import { Courses, NotFound, PROXY_URL } from '../../constants';
+import { Courses, NotFound } from '../../constants';
+
+export const setProxy = (url: string): string => `https://api.allorigins.win/get?url=${url}`;
 
 export function generateOriginalCourseUrl(selectedCourse: string): string {
-  return `${PROXY_URL}/get?url=https://github.com/${Courses[selectedCourse]?.organization}/`;
+  return setProxy(`https://github.com/${Courses[selectedCourse]?.organization}/`);
 }
 
 export function getCourseNumber(html: string): string {
