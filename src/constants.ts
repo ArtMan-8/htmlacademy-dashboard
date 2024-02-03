@@ -50,9 +50,9 @@ export const Courses: ICourses = {
     projects: ['pizza'],
   },
   nodejs: {
-    organization: `htmlacademy-nodejs`,
+    organization: `htmlacademy-nodejs-api`,
     description: 'Node. Профессиональная разработка REST API',
-    projects: ['typoteka', 'buy-and-sell'],
+    projects: ['typoteka', 'buy-and-sell', 'six-cities', 'what-to-watch'],
   },
   php1: {
     organization: `htmlacademy-php`,
